@@ -61,7 +61,7 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/clients")
+@RequestMapping
 public class ClientsController {
 
     @Autowired
@@ -77,23 +77,33 @@ public class ClientsController {
     public ContactRepository contactRepository;
 
 
-    @GetMapping
+    @GetMapping("/")
+    public String greeting(){
+        return ("This is landing page for Employee Task Management Project . Go to postman and use below commands to retrieve data  " +
+                "" +
+                "/clients after current url to get all clients" +
+                "/clients/2/tasks after current url to get all tasks" +
+                "/clients/2/contacts after current url to get all contacts");
+
+    }
+
+    @GetMapping("/clients")
     public List<Client> getClients() {
         return clientService.getAllClients();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/clients/{id}")
     public Optional<Client> getClient(@PathVariable Long id) {
         return clientService.getoneClient(id);
     }
 
-    @PostMapping
+    @PostMapping("/clients")
     public ResponseEntity createClient(@RequestBody Client client) throws URISyntaxException {
         Client savedClient = clientService.createoneClient(client);
         return ResponseEntity.created(new URI("/clients/" + savedClient.getId())).body(savedClient);
     }
 //
-    @PutMapping("/{id}")
+    @PutMapping("/clients/{id}")
     public ResponseEntity updateClient(@PathVariable("id") Long id, @RequestBody Client client) {
         Client currentClient = clientService.updatecurrentClient(id,client);
 
@@ -101,7 +111,7 @@ public class ClientsController {
         return ResponseEntity.ok(currentClient);
     }
 //
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/clients/{id}")
     public ResponseEntity deleteClient(@PathVariable Long id) {
         clientService.deleteoneClient(id);
         return ResponseEntity.ok().build();
