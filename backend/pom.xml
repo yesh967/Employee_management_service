@@ -12,9 +12,9 @@
 	</parent>
 
 	<groupId>com.baeldung</groupId>
-	<artifactId>spring-boot-react</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-boot-react</name>
+	<artifactId>backend</artifactId>
+	<version>2.5.6.RELEASE</version>
+	<name>backend</name>
 	<description>spring and react crud</description>
 
 	<properties>
@@ -70,8 +70,8 @@
 		</dependency>
 		<dependency>
 			<groupId>com.baeldung</groupId>
-			<artifactId>spring-boot-react</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>backend</artifactId>
+			<version>2.5.6.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.javafaker</groupId>
