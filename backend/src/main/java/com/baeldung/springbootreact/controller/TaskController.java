@@ -53,7 +53,8 @@ public class TaskController {
     public ResponseEntity updateClienttasks(@PathVariable("id1") Long id1,@PathVariable("id2") Long id2, @RequestBody Task task) {
 
 
-        return taskService.updatetask(id1,id2,task);
+        Task task1=taskService.updatetask(id1,id2,task);
+        return ResponseEntity.ok(task1);
     }
 
 

@@ -24,7 +24,7 @@ public class Contact {
     private String name;
     private String email;
     private String phoneNumber;
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne
     @JsonIgnore
     private Client client;
 

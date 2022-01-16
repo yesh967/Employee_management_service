@@ -51,12 +51,14 @@ public class ContactController {
         return ResponseEntity.ok().build();
     }
 
-//not yet complete
-    @PutMapping("/{id1}/contacts/{id2}")
-    public ResponseEntity updateClientcontacts(@PathVariable("id1") Long id1,@PathVariable("id2") Long id2, @RequestBody Contact contact) {
 
-        return contactService.updatecontact(id1, id2, contact);
-    }
+    @PutMapping("/{id1}/contacts/{id2}")
+    public ResponseEntity updateClientcontacts(@PathVariable("id1") Long id1,@PathVariable("id2") Long id2, @RequestBody Contact contact)
+    {
+
+        Contact currentcontact=contactService.updatecontact(id1, id2, contact);
+    return ResponseEntity.ok(currentcontact);
+   }
 
 
 }

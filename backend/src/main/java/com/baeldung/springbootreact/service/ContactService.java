@@ -68,22 +68,29 @@ public class ContactService {
 
     }
 
-    public ResponseEntity updatecontact(Long id1,
-                                        Long id2, Contact contact) {
+   public Contact updatecontact(Long id1,
+                                     Long id2, Contact contact) {
 
 
-        //doesnt work do not use now
-        Client currentClient = clientRepository.findById(id1).orElseThrow(RuntimeException::new);
+       Optional<Client> clientOptional = clientRepository.findById(id1);
 
-                int i=id2.intValue();
-        Contact currentcontact=currentClient.getContact().get(i);
-        currentcontact.setName(contact.getName());
-        currentcontact.setEmail(contact.getEmail());
-        currentcontact.setPhoneNumber(contact.getPhoneNumber());
 
-        contactRepository.save(currentcontact);
 
-        return ResponseEntity.ok(currentcontact);
+       if(!clientOptional.isPresent()) {
+           throw new IllegalStateException("client absent");
+       }
 
-    }
+       Client currentClient = clientOptional.get();
+
+
+
+       Contact currentcontact=contactRepository.findById(id2).get();
+       currentcontact.setName(contact.getName());
+       currentcontact.setEmail(contact.getEmail());
+       currentcontact.setPhoneNumber(contact.getPhoneNumber());
+       currentcontact.setClient(currentClient);
+
+        return contactRepository.save(currentcontact);
+
+   }
 }

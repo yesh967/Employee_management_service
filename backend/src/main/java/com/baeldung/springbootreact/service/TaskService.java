@@ -35,22 +35,19 @@ public class TaskService {
 
     }
 
-    public ResponseEntity updatetask(Long id1, Long id2, Task task) {
+    public Task updatetask(Long id1, Long id2, Task task) {
 
 
 
         Optional<Client> clientOptional = clientRepository.findById(id1);
              Integer i = id2.intValue();
 
-
         if(!clientOptional.isPresent()) {
             throw new IllegalStateException("client absent");
         }
 
         Client clientcurrent = clientOptional.get();
-
         Task currenttask=taskRepository.findById(i).get();
-
 
         currenttask.setTaskName(task.getTaskName());
         currenttask.setTaskPriority(task.getTaskPriority());
@@ -59,11 +56,7 @@ public class TaskService {
         currenttask.setCompleted(task.getCompleted());
         currenttask.setClient(clientcurrent);
 
-        taskRepository.save(currenttask);
-
-
-
-        return ResponseEntity.ok(currenttask);
+        return taskRepository.save(currenttask);
 
     }
 
