@@ -1,0 +1,110 @@
+package com.baeldung.springbootreact.controller;
+
+import com.baeldung.springbootreact.domain.Client;
+import com.baeldung.springbootreact.repository.ClientRepository;
+import com.baeldung.springbootreact.repository.ContactRepository;
+import com.baeldung.springbootreact.repository.TaskRepository;
+import com.baeldung.springbootreact.service.ClientService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
+
+// entries to try
+/*[
+    {
+        "id": 1,
+        "name": "yesh",
+        "contact": [],
+        "task": []
+    },
+    {
+        "id": 2,
+        "name": "krat",
+        "contact": [
+            {
+                "cid": 4,
+                "name": null,
+                "email": "nana",
+                "phoneNumber": null
+            }
+        ],
+        "task": []
+    },
+    {
+        "id": 3,
+        "name": "nana",
+        "contact": [
+            {
+                "cid": 5,
+                "name": null,
+                "email": "yeshgmail",
+                "phoneNumber": null
+            }
+        ],
+        "task": [
+            {
+                "taskName": "id problem",
+                "taskPriority": null,
+                "taskComplexity": null,
+                "completed": false,
+                "id": 6,
+                "deadline": null
+            }
+        ]
+    }
+]*/
+
+
+@RestController
+@RequestMapping("/clients")
+public class ClientsController {
+
+    @Autowired
+    public ClientService clientService;
+
+    @Autowired
+    public ClientRepository clientRepository;
+
+    @Autowired
+    public TaskRepository taskRepository;
+
+    @Autowired
+    public ContactRepository contactRepository;
+
+
+    @GetMapping
+    public List<Client> getClients() {
+        return clientService.getAllClients();
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Client> getClient(@PathVariable Long id) {
+        return clientService.getoneClient(id);
+    }
+
+    @PostMapping
+    public ResponseEntity createClient(@RequestBody Client client) throws URISyntaxException {
+        Client savedClient = clientService.createoneClient(client);
+        return ResponseEntity.created(new URI("/clients/" + savedClient.getId())).body(savedClient);
+    }
+//
+    @PutMapping("/{id}")
+    public ResponseEntity updateClient(@PathVariable("id") Long id, @RequestBody Client client) {
+        Client currentClient = clientService.updatecurrentClient(id,client);
+
+
+        return ResponseEntity.ok(currentClient);
+    }
+//
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteClient(@PathVariable Long id) {
+        clientService.deleteoneClient(id);
+        return ResponseEntity.ok().build();
+    }
+
+}
