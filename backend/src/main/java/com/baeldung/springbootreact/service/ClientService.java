@@ -37,7 +37,7 @@ public class ClientService {
 
         Client currentClient = clientRepository.findById(id).orElseThrow(RuntimeException::new);
         currentClient.setName(client.getName());
-
+        clientRepository.save(currentClient);
         return currentClient;
     }
 
