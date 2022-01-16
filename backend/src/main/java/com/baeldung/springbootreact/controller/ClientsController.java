@@ -6,7 +6,6 @@ import com.baeldung.springbootreact.repository.ContactRepository;
 import com.baeldung.springbootreact.repository.TaskRepository;
 import com.baeldung.springbootreact.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -77,15 +76,6 @@ public class ClientsController {
     @Autowired
     public ContactRepository contactRepository;
 
-
-    @GetMapping(value = "", produces = MediaType.TEXT_HTML_VALUE)
-    public String greeting(){
-
-
-        return "<html>\n" + "<header><title>Welcome</title></header>\n" +
-                "<body>\n" + "<br> This is landing page for Employee Task Management Project\n" + "<br> Go to postman and use below commands to retrieve data\n" + "<br> 1 /clients after current url to get all clients \n" + "<br> 2 /clients/2/tasks after current url to get all tasks \n" + "<br> 3 /clients/2/contacts after current url to get all contacts\n"  + "</body>\n" + "</html>";
-
-    }
 
     @GetMapping("/clients")
     public List<Client> getClients() {
