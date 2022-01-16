@@ -77,13 +77,13 @@ public class ClientsController {
     public ContactRepository contactRepository;
 
 
-    @GetMapping("/")
+    @GetMapping("")
     public String greeting(){
-        return ("This is landing page for Employee Task Management Project . Go to postman and use below commands to retrieve data  " +
-                "" +
-                "/clients after current url to get all clients" +
-                "/clients/2/tasks after current url to get all tasks" +
-                "/clients/2/contacts after current url to get all contacts");
+        return ("This is landing page for Employee Task Management Project . Go to postman and use below commands to retrieve data  \n" +
+                " " +
+                "1 /clients after current url to get all clients \n" +
+                "2 /clients/2/tasks after current url to get all tasks \n" +
+                "3 /clients/2/contacts after current url to get all contacts");
 
     }
 
