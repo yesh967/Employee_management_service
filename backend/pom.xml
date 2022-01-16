@@ -12,9 +12,9 @@
 	</parent>
 
 	<groupId>com.baeldung</groupId>
-	<artifactId>backend</artifactId>
-	<version>2.5.6.RELEASE</version>
-	<name>backend</name>
+	<artifactId>spring-boot-react</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>spring-boot-react</name>
 	<description>spring and react crud</description>
 
 	<properties>
@@ -70,8 +70,8 @@
 		</dependency>
 <!--		<dependency>-->
 <!--			<groupId>com.baeldung</groupId>-->
-<!--			<artifactId>backend</artifactId>-->
-<!--			<version>2.5.6.RELEASE</version>-->
+<!--			<artifactId>spring-boot-react</artifactId>-->
+<!--			<version>0.0.1-SNAPSHOT</version>-->
 <!--		</dependency>-->
 		<dependency>
 			<groupId>com.github.javafaker</groupId>
@@ -96,56 +96,56 @@
 				</executions>
 			</plugin>
 
-			<plugin>
-				<groupId>com.github.eirslett</groupId>
-				<artifactId>frontend-maven-plugin</artifactId>
-				<version>${frontend-maven-plugin.version}</version>
-				<configuration>
-					<workingDirectory>frontend</workingDirectory>
-				</configuration>
-				<executions>
-					<execution>
-						<id>install node</id>
-						<goals>
-							<goal>install-node-and-yarn</goal>
-						</goals>
-						<configuration>
-							<nodeVersion>${node.version}</nodeVersion>
-							<yarnVersion>${yarn.version}</yarnVersion>
-						</configuration>
-					</execution>
-					<execution>
-						<id>yarn install</id>
-						<goals>
-							<goal>yarn</goal>
-						</goals>
-						<phase>generate-resources</phase>
-					</execution>
-					<execution>
-						<id>yarn test</id>
-						<goals>
-							<goal>yarn</goal>
-						</goals>
-						<phase>test</phase>
-						<configuration>
-							<arguments>test</arguments>
-							<environmentVariables>
-								<CI>true</CI>
-							</environmentVariables>
-						</configuration>
-					</execution>
-					<execution>
-						<id>yarn build</id>
-						<goals>
-							<goal>yarn</goal>
-						</goals>
-						<phase>compile</phase>
-						<configuration>
-							<arguments>build</arguments>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+<!--			<plugin>-->
+<!--				<groupId>com.github.eirslett</groupId>-->
+<!--				<artifactId>frontend-maven-plugin</artifactId>-->
+<!--				<version>${frontend-maven-plugin.version}</version>-->
+<!--				<configuration>-->
+<!--					<workingDirectory>frontend</workingDirectory>-->
+<!--				</configuration>-->
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<id>install node</id>-->
+<!--						<goals>-->
+<!--							<goal>install-node-and-yarn</goal>-->
+<!--						</goals>-->
+<!--						<configuration>-->
+<!--							<nodeVersion>${node.version}</nodeVersion>-->
+<!--							<yarnVersion>${yarn.version}</yarnVersion>-->
+<!--						</configuration>-->
+<!--					</execution>-->
+<!--					<execution>-->
+<!--						<id>yarn install</id>-->
+<!--						<goals>-->
+<!--							<goal>yarn</goal>-->
+<!--						</goals>-->
+<!--						<phase>generate-resources</phase>-->
+<!--					</execution>-->
+<!--					<execution>-->
+<!--						<id>yarn test</id>-->
+<!--						<goals>-->
+<!--							<goal>yarn</goal>-->
+<!--						</goals>-->
+<!--						<phase>test</phase>-->
+<!--						<configuration>-->
+<!--							<arguments>test</arguments>-->
+<!--							<environmentVariables>-->
+<!--								<CI>true</CI>-->
+<!--							</environmentVariables>-->
+<!--						</configuration>-->
+<!--					</execution>-->
+<!--					<execution>-->
+<!--						<id>yarn build</id>-->
+<!--						<goals>-->
+<!--							<goal>yarn</goal>-->
+<!--						</goals>-->
+<!--						<phase>compile</phase>-->
+<!--						<configuration>-->
+<!--							<arguments>build</arguments>-->
+<!--						</configuration>-->
+<!--					</execution>-->
+<!--				</executions>-->
+<!--			</plugin>-->
 		</plugins>
 	</build>
 
