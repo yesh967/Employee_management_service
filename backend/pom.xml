@@ -68,11 +68,11 @@
 			<version>1.4.200</version>
 			<scope>runtime</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.baeldung</groupId>
-			<artifactId>backend</artifactId>
-			<version>2.5.6.RELEASE</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.baeldung</groupId>-->
+<!--			<artifactId>backend</artifactId>-->
+<!--			<version>2.5.6.RELEASE</version>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>com.github.javafaker</groupId>
 			<artifactId>javafaker</artifactId>
