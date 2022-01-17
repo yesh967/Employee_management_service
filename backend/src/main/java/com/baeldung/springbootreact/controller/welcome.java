@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class welcome {
 
-    @GetMapping(value = "", produces = MediaType.TEXT_HTML_VALUE)
+    @GetMapping(value = "/welcome", produces = MediaType.TEXT_HTML_VALUE)
     @ResponseBody
     public String welcomeAsHTML() {
         return "<!DOCTYPE html>\n" +

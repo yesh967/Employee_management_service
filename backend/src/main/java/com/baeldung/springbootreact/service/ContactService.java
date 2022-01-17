@@ -93,4 +93,20 @@ public class ContactService {
         return contactRepository.save(currentcontact);
 
    }
+
+    public Optional<Contact> getoneContact(Long id1, Long id2) {
+
+        Optional<Client> clientOptional = clientRepository.findById(id1);
+
+
+
+        if(!clientOptional.isPresent()) {
+            throw new IllegalStateException("client absent");
+        }
+        else
+        {
+            return contactRepository.findById(id2);
+        }
+
+    }
 }

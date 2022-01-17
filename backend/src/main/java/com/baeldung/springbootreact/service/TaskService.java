@@ -88,4 +88,21 @@ taskRepository.deleteById(id2);
         return ResponseEntity.created(location).build();
 
     }
+
+    public Optional<Task> getonetask(Long id1, Integer id2) {
+
+        Optional<Client> clientOptional = clientRepository.findById(id1);
+
+
+
+        if(!clientOptional.isPresent()) {
+            throw new IllegalStateException("client absent");
+        }
+        else
+        {
+            return taskRepository.findById(id2);
+        }
+
+    }
+
 }

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/clients")
@@ -30,7 +31,10 @@ public class TaskController {
 
     }
 
-
+    @GetMapping("/clients/{id1}/tasks/{id2}")
+    public Optional<Task> getClient(@PathVariable("id1") Long id1, @PathVariable("id2") Integer id2) {
+        return taskService.getonetask(id1,id2);
+    }
 
     @PostMapping("/{id}/tasks")
     public ResponseEntity<Object> createTask(@PathVariable long id, @RequestBody Task task) {
