@@ -21,8 +21,8 @@ public class welcome {
                 "  font-family: courier;\n" +
                 "  font-size: 160%;text-align: center;\">\n" +
                 "<br> This is landing page for Employee Task Management Project\n" +
-                "<br> Go to postman to create new employees, their tasks and contact details or use below commands to retrieve data\n" +
-                "<br> <a href=\"https://employee-task-management.herokuapp.com/swagger-ui.html\"> Endpoints for utilising Employee task management service </a>\n" +
+                "<br> This application can be used to create new employees, their tasks add contact details of these same employees ,delete tasks if desired once completed update employee , their tasks and contact details too  \n" +
+                "<br> <a  style=\"color: aqua;\"  href=\"https://employee-task-management.herokuapp.com/swagger-ui.html\"> Endpoints for utilising Employee task management service </a>\n" +
 
 
                 "</p>\n" +
