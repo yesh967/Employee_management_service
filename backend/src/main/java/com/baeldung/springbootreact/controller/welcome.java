@@ -22,9 +22,9 @@ public class welcome {
                 "  font-size: 160%;text-align: center;\">\n" +
                 "<br> This is landing page for Employee Task Management Project\n" +
                 "<br> Go to postman to create new employees, their tasks and contact details or use below commands to retrieve data\n" +
-                "<br> 1 /clients after current url to get all clients\n" +
-                "<br> 2 /clients/2/tasks after current url to get all tasks\n" +
-                "<br> 3 /clients/2/contacts after current url to get all contacts\n" +
+                "<br> <a href=\"https://employee-task-management.herokuapp.com/swagger-ui.html\"> Endpoints for utilising Employee task management service </a>\n" +
+
+
                 "</p>\n" +
                 "</body>\n" +
                 "</html>";
