@@ -17,7 +17,7 @@ import java.util.Date;
 public class Task {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO,
+    @GeneratedValue(strategy = GenerationType.IDENTITY,
             generator ="native")
     @GenericGenerator(name = "native",
             strategy = "native")

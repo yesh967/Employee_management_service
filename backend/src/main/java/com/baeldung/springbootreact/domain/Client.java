@@ -16,14 +16,14 @@ import java.util.List;
 public class Client {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO,
+    @GeneratedValue(strategy = GenerationType.IDENTITY,
     generator ="native")
     @GenericGenerator(name = "native",
     strategy = "native")
     private Long id;
 
     private String name;
-
+    private String contact_details;
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Contact> contact;
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL,orphanRemoval = true)

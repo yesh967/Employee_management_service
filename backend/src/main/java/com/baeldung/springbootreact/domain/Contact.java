@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class Contact {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO,
+    @GeneratedValue(strategy = GenerationType.IDENTITY,
             generator ="native")
     @GenericGenerator(name = "native",
             strategy = "native")
