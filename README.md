@@ -13,10 +13,10 @@ and a list of contacts the employee holds supported with the same functionality 
 # Requirements
 For building and running the application you need:
 
-JDK 1.8
-Maven 
-IDE for example like intellij or ecllipse
-postgres
+JDK 1.8, 
+Maven,  
+IDE for example like intellij or ecllipse, 
+postgres, 
 postman 
 
 # Running the application locally
@@ -31,11 +31,10 @@ Its an ongoing application designed to implement multiple functionalities like f
          •	Tasks
 
 
-
-
 # Extra Note to understand Endpoints better
 Install swagger ui dependency in Project pom file and hit endpoint
-http://localhost:portnumber/your-app-root/swagger-ui/
+http://localhost:portnumber/your-app-name/swagger-ui/  
+Provides you all endpoints your application contains and their entity schema
 
 
 
