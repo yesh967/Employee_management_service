@@ -17,11 +17,11 @@ import java.util.Date;
 public class Task {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY,
+    @GeneratedValue(strategy = GenerationType.AUTO,
             generator ="native")
     @GenericGenerator(name = "native",
             strategy = "native")
-    private int Id;
+    private Long Id;
 
     private String taskName;
     private String taskPriority;
@@ -30,7 +30,7 @@ public class Task {
     private boolean completed;
     @ManyToOne
     @JsonIgnore
-    private Client client;
+    private Employee employee;
 
     public boolean getCompleted() {
         return completed;

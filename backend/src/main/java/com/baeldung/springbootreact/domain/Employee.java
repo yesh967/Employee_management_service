@@ -8,25 +8,24 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "client")
+@Table(name = "employee")
 @AllArgsConstructor
 @Getter
 @Setter
 @NoArgsConstructor
-public class Client {
+public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY,
+    @GeneratedValue(strategy = GenerationType.AUTO,
     generator ="native")
     @GenericGenerator(name = "native",
     strategy = "native")
     private Long id;
-
     private String name;
     private String contact_details;
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<Contact> contact;
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Team> team;
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Task> task;
 
 }

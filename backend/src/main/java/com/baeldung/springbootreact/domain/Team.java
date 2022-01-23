@@ -8,24 +8,24 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "contact")
+@Table(name = "team")
 @AllArgsConstructor
 @Getter
 @Setter
 @NoArgsConstructor
-public class Contact {
+public class Team {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY,
+    @GeneratedValue(strategy = GenerationType.AUTO,
             generator ="native")
     @GenericGenerator(name = "native",
             strategy = "native")
-    private Long cid;
-    private String name;
-    private String email;
-    private String phoneNumber;
+    private Long teamId;
+    private String teamName;
+    private String Project;
+    private String location;
     @ManyToOne
     @JsonIgnore
-    private Client client;
+    private Employee employee;
 
 }

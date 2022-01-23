@@ -1,9 +1,9 @@
 package com.baeldung.springbootreact.repository;
 
-import com.baeldung.springbootreact.domain.Contact;
+import com.baeldung.springbootreact.domain.Team;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ContactRepository extends JpaRepository<Contact, Long> {
+public interface TeamRepository extends JpaRepository<Team, Long> {
 }
