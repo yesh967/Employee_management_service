@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -44,7 +45,7 @@ public class EmployeeController {
         }
 
         @PostMapping("/employees")
-        public ResponseEntity createEmployee(@RequestBody Employee employee) throws URISyntaxException {
+        public ResponseEntity createEmployee(@Valid @RequestBody Employee employee) throws URISyntaxException {
             Employee savedEmployee = employeeService.createoneEmployee(employee);
             return ResponseEntity.created(new URI("/employees/" + savedEmployee.getId())).body(savedEmployee);
         }

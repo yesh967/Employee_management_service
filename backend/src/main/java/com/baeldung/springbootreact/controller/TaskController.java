@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +40,7 @@ public class TaskController {
             }
 
     @PostMapping("/{id}/tasks")
-    public ResponseEntity<Object> createTask(@PathVariable long id, @RequestBody Task task)
+    public ResponseEntity<Object> createTask(@Valid @PathVariable long id, @RequestBody Task task)
         {
             return taskService.createtasks(id,task);
         }

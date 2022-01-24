@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Data
@@ -21,6 +22,7 @@ public class Employee {
     @GenericGenerator(name = "native",
     strategy = "native")
     private Long id;
+    @Size(min = 2)
     private String name;
     private String contact_details;
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL,orphanRemoval = true)

@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
 import java.util.Date;
 
 @Data
@@ -26,6 +27,7 @@ public class Task {
     private String taskName;
     private String taskPriority;
     private String taskComplexity;
+    @Future
     private Date Deadline;
     private boolean completed;
     @ManyToOne
