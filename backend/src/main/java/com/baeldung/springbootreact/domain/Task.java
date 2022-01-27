@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
 import java.util.Date;
 
 @Data
@@ -21,16 +22,17 @@ public class Task {
             generator ="native")
     @GenericGenerator(name = "native",
             strategy = "native")
-    private int Id;
+    private Long Id;
 
     private String taskName;
     private String taskPriority;
     private String taskComplexity;
+    @Future
     private Date Deadline;
     private boolean completed;
     @ManyToOne
     @JsonIgnore
-    private Client client;
+    private Employee employee;
 
     public boolean getCompleted() {
         return completed;

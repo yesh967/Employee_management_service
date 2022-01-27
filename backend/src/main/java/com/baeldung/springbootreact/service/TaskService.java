@@ -1,8 +1,8 @@
 package com.baeldung.springbootreact.service;
 
-import com.baeldung.springbootreact.domain.Client;
+import com.baeldung.springbootreact.domain.Employee;
 import com.baeldung.springbootreact.domain.Task;
-import com.baeldung.springbootreact.repository.ClientRepository;
+import com.baeldung.springbootreact.repository.EmployeeRepository;
 import com.baeldung.springbootreact.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ import java.util.Optional;
 public class TaskService {
 
     @Autowired
-    public ClientRepository clientRepository;
+    public EmployeeRepository employeeRepository;
 
     @Autowired
     public TaskRepository taskRepository;
@@ -25,13 +25,13 @@ public class TaskService {
     public List<Task> gettasks(long id) {
 
 
-        Optional<Client> clientOptional = clientRepository.findById(id);
+        Optional<Employee> employeeOptional = employeeRepository.findById(id);
 
-        if(!clientOptional.isPresent()) {
-            throw new IllegalStateException("client absent");
+        if(!employeeOptional.isPresent()) {
+            throw new IllegalStateException("employee absent");
         }
 
-        return clientOptional.get().getTask();
+        return employeeOptional.get().getTask();
 
     }
 
@@ -39,28 +39,28 @@ public class TaskService {
 
 
 
-        Optional<Client> clientOptional = clientRepository.findById(id1);
-             Integer i = id2.intValue();
+        Optional<Employee> employeeOptional = employeeRepository.findById(id1);
 
-        if(!clientOptional.isPresent()) {
-            throw new IllegalStateException("client absent");
+
+        if(!employeeOptional.isPresent()) {
+            throw new IllegalStateException("employee absent");
         }
 
-        Client clientcurrent = clientOptional.get();
-        Task currenttask=taskRepository.findById(i).get();
+        Employee employeecurrent = employeeOptional.get();
+        Task currenttask=taskRepository.findById(id2).get();
 
         currenttask.setTaskName(task.getTaskName());
         currenttask.setTaskPriority(task.getTaskPriority());
         currenttask.setTaskComplexity(task.getTaskComplexity());
         currenttask.setDeadline(task.getDeadline());
         currenttask.setCompleted(task.getCompleted());
-        currenttask.setClient(clientcurrent);
+        currenttask.setEmployee(employeecurrent);
 
         return taskRepository.save(currenttask);
 
     }
 
-    public void deletetask(Long id1, int id2) {
+    public void deletetask(Long id1, Long id2) {
 
 
 taskRepository.deleteById(id2);
@@ -70,15 +70,15 @@ taskRepository.deleteById(id2);
     public ResponseEntity<Object> createtasks(long id, Task task) {
 
 
-        Optional<Client> clientOptional = clientRepository.findById(id);
+        Optional<Employee> employeeOptional = employeeRepository.findById(id);
 
-        if(!clientOptional.isPresent()) {
-            throw new IllegalStateException("client absent");
+        if(!employeeOptional.isPresent()) {
+            throw new IllegalStateException("employee absent");
         }
 
-        Client clientcurrent = clientOptional.get();
+        Employee employeecurrent = employeeOptional.get();
 
-        task.setClient(clientcurrent);
+        task.setEmployee(employeecurrent);
 
         taskRepository.save(task);
 
@@ -89,19 +89,18 @@ taskRepository.deleteById(id2);
 
     }
 
-    public Optional<Task> getonetask(Long id1, Integer id2) {
+    public Optional<Task> getonetask(Long id1, Long id2) {
 
-        Optional<Client> clientOptional = clientRepository.findById(id1);
+        Optional<Employee> employeeOptional = employeeRepository.findById(id1);
 
 
 
-        if(!clientOptional.isPresent()) {
-            throw new IllegalStateException("client absent");
+        if(!employeeOptional.isPresent()) {
+            throw new IllegalStateException("employee absent");
         }
-        else
-        {
+
             return taskRepository.findById(id2);
-        }
+
 
     }
 
