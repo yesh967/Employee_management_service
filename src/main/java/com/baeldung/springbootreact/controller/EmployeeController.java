@@ -15,6 +15,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
+//controller class for Endpoints of crud operations on Employee entity
+
 @RestController
 @RequestMapping
 public class EmployeeController {

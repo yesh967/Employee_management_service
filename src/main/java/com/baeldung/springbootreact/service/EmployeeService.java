@@ -1,5 +1,5 @@
 
-    package com.baeldung.springbootreact.service;
+package com.baeldung.springbootreact.service;
 
 import com.baeldung.springbootreact.domain.Employee;
 import com.baeldung.springbootreact.repository.EmployeeRepository;
@@ -11,42 +11,47 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 import java.util.Optional;
 
-    @Service
-    public class EmployeeService {
+@Service
+public class EmployeeService {
 
-        @Autowired
-        public EmployeeRepository employeeRepository;
+    @Autowired
+    public EmployeeRepository employeeRepository;
 
+    // retrieves list of all employees and its related contents
+    public List<Employee> getAllEmployees()
+    {
+        return employeeRepository.findAll();
+    }
 
-        public List<Employee> getAllEmployees() {
-            return employeeRepository.findAll();
-        }
+    // retrieves employee only if it exists
+    public Optional<Employee> getoneEmployee(Long id)
+    {
+        return employeeRepository.findById(id);
+    }
 
+    //employee creation and saving it to database
+    public Employee createoneEmployee(Employee employee)
+    {
+        Employee savedEmployee = employeeRepository.save(employee);
+        return savedEmployee;
+    }
 
-        public Optional<Employee> getoneEmployee(Long id) {
-            return employeeRepository.findById(id);
-        }
+    //updating employee data in database
+    public Employee updatecurrentEmployee(@PathVariable Long id, @RequestBody Employee employee)
+    {
 
-
-        public Employee createoneEmployee(Employee employee){
-            Employee savedEmployee = employeeRepository.save(employee);
-
-            return savedEmployee;
-        }
-
-        public Employee updatecurrentEmployee(@PathVariable Long id, @RequestBody Employee employee) {
-
-            Employee currentEmployee = employeeRepository.findById(id).orElseThrow(RuntimeException::new);
-            currentEmployee.setName(employee.getName());
-            currentEmployee.setContact_details(employee.getContact_details());
-            employeeRepository.save(currentEmployee);
-            return currentEmployee;
-        }
-
-        public void deleteoneEmployee(Long id) {
-            employeeRepository.deleteById(id);
-
-        }
+        Employee currentEmployee = employeeRepository.findById(id).orElseThrow(RuntimeException::new);
+        currentEmployee.setName(employee.getName());
+        currentEmployee.setContact_details(employee.getContact_details());
+        employeeRepository.save(currentEmployee);
+        return currentEmployee;
+    }
+    //removing an employee and its contents from database
+    public void deleteoneEmployee(Long id)
+    {
+        employeeRepository.deleteById(id);
 
     }
+
+}
 

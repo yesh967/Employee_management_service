@@ -22,6 +22,7 @@ public class TaskService {
     @Autowired
     public TaskRepository taskRepository;
 
+    // retrieves list of all tasks
     public List<Task> gettasks(long id) {
 
 
@@ -34,7 +35,7 @@ public class TaskService {
         return employeeOptional.get().getTask();
 
     }
-
+    //updating task data in database
     public Task updatetask(Long id1, Long id2, Task task) {
 
 
@@ -59,15 +60,14 @@ public class TaskService {
         return taskRepository.save(currenttask);
 
     }
-
-    public void deletetask(Long id1, Long id2) {
-
-
-taskRepository.deleteById(id2);
-
+    //removing a task  from database
+    public void deletetask(Long id1, Long id2)
+    {
+        taskRepository.deleteById(id2);
     }
-
-    public ResponseEntity<Object> createtasks(long id, Task task) {
+    //creating tasks data in database
+    public ResponseEntity<Object> createtasks(long id, Task task)
+    {
 
 
         Optional<Employee> employeeOptional = employeeRepository.findById(id);
@@ -89,6 +89,7 @@ taskRepository.deleteById(id2);
 
     }
 
+    //retrieving single task data from database
     public Optional<Task> getonetask(Long id1, Long id2) {
 
         Optional<Employee> employeeOptional = employeeRepository.findById(id1);
@@ -104,4 +105,20 @@ taskRepository.deleteById(id2);
 
     }
 
+//    public Task updatetaskfield(Long id1, Long id2, Task task) {
+//        Optional<Employee> employeeOptional = employeeRepository.findById(id1);
+//
+//
+//        if(!employeeOptional.isPresent()) {
+//            throw new IllegalStateException("employee absent");
+//        }
+//
+//        Employee employeecurrent = employeeOptional.get();
+//        Task currenttask=taskRepository.findById(id2).get();
+//
+//        currenttask.setCompleted(task.getCompleted());
+//
+//        return taskRepository.save(currenttask);
+//
+//    }
 }

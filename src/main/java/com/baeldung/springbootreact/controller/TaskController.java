@@ -13,6 +13,8 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
+//controller class for Endpoints of crud operations on task entity
+
 @RestController
 @RequestMapping("/employees")
 public class TaskController {
@@ -60,6 +62,13 @@ public class TaskController {
         return ResponseEntity.ok(task1);
     }
 
+//    @PatchMapping("/{id1}/tasks/{id2}")
+//    public ResponseEntity updateEmployeetasksfield(@PathVariable("id1") Long id1,@PathVariable("id2") Long id2, @RequestBody Task task) {
+//
+//
+//        Task task1=taskService.updatetaskfield(id1,id2,task);
+//        return ResponseEntity.ok(task1);
+//    }
 
 
 }

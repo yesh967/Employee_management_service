@@ -24,7 +24,7 @@ public class TeamService {
     @Autowired
     public TeamRepository teamRepository;
 
-
+    // retrieves list of all teams
     public List<Team> getteams(long id) {
 
 
@@ -37,7 +37,7 @@ public class TeamService {
         return employeeOptional.get().getTeam();
     }
 
-
+    //creating team data in database
     public ResponseEntity<Object> createteam(long id, Team teamvar) {
 
         //
@@ -59,7 +59,7 @@ public class TeamService {
         return ResponseEntity.created(location).build();
 
     }
-
+    //removing team entity data from database
     public void deleteteam(Long id1, Long id2) {
 
 
@@ -67,7 +67,7 @@ public class TeamService {
 
 
     }
-
+    //updating team data in database
    public Team updateteam(Long id1, Long id2, Team team) {
 
 
@@ -92,7 +92,7 @@ public class TeamService {
         return teamRepository.save(currentteam);
 
    }
-
+    // retrieves team if exists
     public Optional<Team> getoneteam(Long id1, Long id2) {
 
         Optional<Employee> employeeOptional = employeeRepository.findById(id1);
