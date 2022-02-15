@@ -1,5 +1,6 @@
 package com.baeldung.springbootreact.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -28,6 +29,7 @@ public class Task {
     private String taskPriority;
     private String taskComplexity;
     @Future
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date Deadline;
     private boolean completed;
     @ManyToOne

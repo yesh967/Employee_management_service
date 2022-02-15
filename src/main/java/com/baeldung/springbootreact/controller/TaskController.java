@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +32,7 @@ public class TaskController {
         @GetMapping("/{id}/tasks")
         public List<Task> retrieveAlltasks(@PathVariable long id)
             {
+
                 return taskService.gettasks(id);
 
             }
@@ -48,8 +50,7 @@ public class TaskController {
         }
 
     @DeleteMapping("/{id1}/tasks/{id2}")
-    public ResponseEntity deleteEmployeetask(@PathVariable("id1") Long id1, @PathVariable("id2") Long id2)
-        {
+    public ResponseEntity deleteEmployeetask(@PathVariable("id1") Long id1, @PathVariable("id2") Long id2) throws SQLException {
             taskService.deletetask(id1,id2);
             return ResponseEntity.ok().build();
         }

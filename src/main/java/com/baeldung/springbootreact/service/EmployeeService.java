@@ -2,6 +2,7 @@
 package com.baeldung.springbootreact.service;
 
 import com.baeldung.springbootreact.domain.Employee;
+import com.baeldung.springbootreact.domain.Task;
 import com.baeldung.springbootreact.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,9 +11,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @Service
 public class EmployeeService {
+
+    static Logger logger = Logger.getLogger(EmployeeService.class.getName());
 
     @Autowired
     public EmployeeRepository employeeRepository;
@@ -49,7 +53,8 @@ public class EmployeeService {
     //removing an employee and its contents from database
     public void deleteoneEmployee(Long id)
     {
-        employeeRepository.deleteById(id);
+
+            employeeRepository.deleteById(id);
 
     }
 
