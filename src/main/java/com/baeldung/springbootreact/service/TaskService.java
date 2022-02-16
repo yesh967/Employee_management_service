@@ -4,15 +4,21 @@ import com.baeldung.springbootreact.domain.Employee;
 import com.baeldung.springbootreact.domain.Task;
 import com.baeldung.springbootreact.repository.EmployeeRepository;
 import com.baeldung.springbootreact.repository.TaskRepository;
+import org.apache.catalina.Manager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.management.Query;
+import java.lang.reflect.Field;
 import java.net.URI;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -104,7 +110,7 @@ public class TaskService {
 
 
     //creating tasks data in database
-    public ResponseEntity<Object> createtasks(long id, Task task)
+    public ResponseEntity<Task> createtasks(long id, Task task)
     {
 
         Optional<Employee> employeeOptional = employeeRepository.findById(id);
@@ -112,14 +118,9 @@ public class TaskService {
         if(!employeeOptional.isPresent()) {
             throw new NullPointerException("employee absent");
         }
-
         Employee employeecurrent = employeeOptional.get();
-
         task.setEmployee(employeecurrent);
-
-
         taskRepository.save(task);
-
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(task.getId())
                 .toUri();
 
@@ -141,20 +142,49 @@ public class TaskService {
 
     }
 
-//    public Task updatetaskfield(Long id1, Long id2, Task task) {
-//        Optional<Employee> employeeOptional = employeeRepository.findById(id1);
+
+//    public Task updatetaskfield(Long id1, Long id2, Map<Object,Object> task) {
+//
+//        Query query = sessionFactory.getCurrentSession().createQuery("update Manager set username = :username, password = :password where id = :id");
+//        query.setParameter("username", manager.getUsername());
+//        query.setParameter("password", manager.getPassword());
+//        query.setParameter("id", manager.getId());
+//        query.executeUpdate();
 //
 //
-//        if(!employeeOptional.isPresent()) {
-//            throw new IllegalStateException("employee absent");
-//        }
 //
-//        Employee employeecurrent = employeeOptional.get();
-//        Task currenttask=taskRepository.findById(id2).get();
 //
-//        currenttask.setCompleted(task.getCompleted());
+////
+////        Optional<Employee> employeeOptional = employeeRepository.findById(id1);
+////
+////
+////        if(!employeeOptional.isPresent()) {
+////            throw new IllegalStateException("employee absent");
+////        }
+////
+////        Employee employeecurrent = employeeOptional.get();
+////
+////        Optional<Task> currenttask=taskRepository.findById(id2);
+////
+////        if(!currenttask.isPresent()) {
+////            throw new IllegalStateException("employee absent");
+////        }
+////else{
+////    task.forEach((key,value)->{
+////
+////        Field params= ReflectionUtils.findField(Task.class,(String) key);
+////        params.setAccessible(true);
+////        ReflectionUtils.setField(params,Task.class, value);
+////    });
+////
+////
+////        }
+////        return taskRepository.save(currenttask.get());
+////
+//////        currenttask.setCompleted(task.getCompleted());
+////
+////       // return taskRepository.save(currenttask);
 //
-//        return taskRepository.save(currenttask);
-//
-//    }
+//   }
+
 }

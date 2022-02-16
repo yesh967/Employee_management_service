@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 //controller class for Endpoints of crud operations on task entity
@@ -44,7 +45,7 @@ public class TaskController {
             }
 
     @PostMapping("/{id}/tasks")
-    public ResponseEntity<Object> createTask(@Valid @PathVariable long id, @RequestBody Task task)
+    public ResponseEntity<Task> createTask(@Valid @PathVariable long id, @RequestBody Task task)
         {
             return taskService.createtasks(id,task);
         }
@@ -56,7 +57,7 @@ public class TaskController {
         }
 
     @PutMapping("/{id1}/tasks/{id2}")
-    public ResponseEntity updateEmployeetasks(@PathVariable("id1") Long id1,@PathVariable("id2") Long id2, @RequestBody Task task) {
+    public ResponseEntity<Task> updateEmployeetasks(@PathVariable("id1") Long id1,@PathVariable("id2") Long id2, @RequestBody Task task) {
 
 
         Task task1=taskService.updatetask(id1,id2,task);
@@ -64,11 +65,11 @@ public class TaskController {
     }
 
 //    @PatchMapping("/{id1}/tasks/{id2}")
-//    public ResponseEntity updateEmployeetasksfield(@PathVariable("id1") Long id1,@PathVariable("id2") Long id2, @RequestBody Task task) {
+//    public ResponseEntity<Task> updateEmployeetasksfield(@PathVariable("id1") Long id1,@PathVariable("id2") Long id2, @RequestBody Map<Object,Object> task) {
 //
 //
-//        Task task1=taskService.updatetaskfield(id1,id2,task);
-//        return ResponseEntity.ok(task1);
+////        Task task1=taskService.updatetaskfield(id1,id2,task);
+//        return ResponseEntity.ok(taskService.updatetaskfield(id1,id2,task));
 //    }
 
 
