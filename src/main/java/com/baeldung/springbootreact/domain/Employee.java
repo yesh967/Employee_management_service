@@ -7,13 +7,14 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.List;
 
-@Data
+
 @Entity
 @Table(name = "employee")
 @AllArgsConstructor
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class Employee {
 
     @Id
@@ -24,9 +25,11 @@ public class Employee {
     private Long id;
     @Size(min = 2)
     private String name;
-    private String contact_details;
+    private String email;
+    @ToString.Exclude
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Team> team;
+    @ToString.Exclude
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Task> task;
 

@@ -6,13 +6,14 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
-@Data
+
 @Entity
 @Table(name = "team")
 @AllArgsConstructor
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class Team {
 
     @Id
@@ -26,6 +27,7 @@ public class Team {
     private String location;
     @ManyToOne
     @JsonIgnore
+    @ToString.Exclude
     private Employee employee;
 
 }

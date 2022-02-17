@@ -4,18 +4,19 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.context.annotation.Bean;
 
 import javax.persistence.*;
 import javax.validation.constraints.Future;
 import java.util.Date;
 
-@Data
 @Entity
 @Table(name = "task")
 @AllArgsConstructor
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class Task {
 
     @Id
@@ -34,9 +35,15 @@ public class Task {
     private boolean completed;
     @ManyToOne
     @JsonIgnore
+    @ToString.Exclude
     private Employee employee;
 
+// @Bean
+//    public Task Task(){
+//     return new Task();
+// }
+
     public boolean getCompleted() {
-        return completed;
+     return completed;
     }
 }

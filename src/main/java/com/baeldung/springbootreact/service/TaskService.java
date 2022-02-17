@@ -4,21 +4,15 @@ import com.baeldung.springbootreact.domain.Employee;
 import com.baeldung.springbootreact.domain.Task;
 import com.baeldung.springbootreact.repository.EmployeeRepository;
 import com.baeldung.springbootreact.repository.TaskRepository;
-import org.apache.catalina.Manager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ReflectionUtils;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.management.Query;
-import java.lang.reflect.Field;
+import java.io.IOException;
 import java.net.URI;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -34,56 +28,66 @@ public class TaskService {
 
     // retrieves list of all tasks
     public List<Task> gettasks(long id) {
+        logger.info(" In getAllEmployee function ");
+        try {
+            Optional<Employee> employeeOptional = employeeRepository.findById(id);
 
+            if (!employeeOptional.isPresent()) {
+                throw new NullPointerException("employee absent");
+            }
+        else{
+                return employeeOptional.get().getTask();
+            }
 
-        Optional<Employee> employeeOptional = employeeRepository.findById(id);
-
-        if(!employeeOptional.isPresent()) {
-            throw new NullPointerException("employee absent");
         }
-
-        return employeeOptional.get().getTask();
-
+        catch(Exception e)
+        {
+            logger.info("Exception in fetching tasks, tasks absent"+ e.getMessage());
+        }
+        return null;
     }
 
 
     //updating task data in database
     public Task updatetask(Long id1, Long id2, Task task) {
+        logger.info(" In getAllEmployee function ");
 
-        Optional<Employee> employeeOptional = Optional.of(new Employee());
-        Task currenttask=new Task();
-    try {
-
-        employeeOptional = employeeRepository.findById(id1);
-
-
+        try
+        {
+            Optional<Employee> employeeOptional = employeeRepository.findById(id1);
         if (employeeOptional.isPresent()) {
             Employee employeecurrent = employeeOptional.get();
-            currenttask = taskRepository.findById(id2).get();
+            Optional<Task> currenttaskOp=taskRepository.findById(id2);
+            if (currenttaskOp.isPresent()) {
+                Task currenttask = currenttaskOp.get();
 
-            currenttask.setTaskName(task.getTaskName());
-            currenttask.setTaskPriority(task.getTaskPriority());
-            currenttask.setTaskComplexity(task.getTaskComplexity());
-            currenttask.setDeadline(task.getDeadline());
-            currenttask.setCompleted(task.getCompleted());
+                currenttask.setTaskName(task.getTaskName());
+                currenttask.setTaskPriority(task.getTaskPriority());
+                currenttask.setTaskComplexity(task.getTaskComplexity());
+                currenttask.setDeadline(task.getDeadline());
+                currenttask.setCompleted(task.getCompleted());
 
-            currenttask.setEmployee(employeecurrent);
+                currenttask.setEmployee(employeecurrent);
+                return taskRepository.save(currenttask);
+            }
         }
-
+        else {
+            throw new IOException(" cannot update Exception thrown");
+        }
     }
     catch(Exception e)
     {
         logger.info("Exception in fetching task, task absent"+ e.getMessage());
     }
-        return taskRepository.save(currenttask);
+        return null;
     }
 
 
 
     //removing a task  from database
-    public void deletetask(Long id1, Long id2) throws NullPointerException, SQLException
+    public void deletetask(Long id1, Long id2) throws NullPointerException, IOException
     {
-
+        logger.info(" In getAllEmployee function ");
 
         try{
             Optional<Employee> employeeOptional = employeeRepository.findById(id1);
@@ -112,79 +116,84 @@ public class TaskService {
     //creating tasks data in database
     public ResponseEntity<Task> createtasks(long id, Task task)
     {
+        logger.info(" In getAllEmployee function ");
 
-        Optional<Employee> employeeOptional = employeeRepository.findById(id);
+        try {
+            Optional<Employee> employeeOptional =employeeRepository.findById(id);
 
-        if(!employeeOptional.isPresent()) {
-            throw new NullPointerException("employee absent");
+            if (!employeeOptional.isPresent()) {
+                throw new NullPointerException("employee absent");
+            }
+            Employee employeecurrent = employeeOptional.get();
+            task.setEmployee(employeecurrent);
+            taskRepository.save(task);
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(task.getId())
+                    .toUri();
+
+            return ResponseEntity.created(location).build();
+        }catch (Exception e){
+            logger.info("Exception while creation of task"+e.getMessage());
         }
-        Employee employeecurrent = employeeOptional.get();
-        task.setEmployee(employeecurrent);
-        taskRepository.save(task);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(task.getId())
-                .toUri();
-
-        return ResponseEntity.created(location).build();
-
+return null;
     }
 
 
 
     //retrieving single task data from database
     public Optional<Task> getonetask(Long id1, Long id2) {
+        logger.info(" In getAllEmployee function ");
 
-        Optional<Employee> employeeOptional = employeeRepository.findById(id1);
+        try {
+        Optional<Employee> employeeOptional= Optional.of(new Employee());
 
-        if(!employeeOptional.isPresent()) {
-            throw new IllegalStateException("employee absent");
+            employeeOptional = employeeRepository.findById(id1);
+
+            // System.out.println(employeeOptional);
+            if (!employeeOptional.isPresent()) {
+                throw new NullPointerException("employee absent");
+            } else {
+                Optional<Task> taskfound = Optional.of(new Task());
+
+                taskfound = taskRepository.findById(id2);
+                if (!taskfound.isPresent()) {
+                    throw new NullPointerException("employee absent");
+                } else
+                    return taskfound;
+            }
+        }catch (NullPointerException e){
+            logger.info("Task Not present"+ e.getMessage());
         }
-            return taskRepository.findById(id2);
-
+        return null;
     }
 
 
-//    public Task updatetaskfield(Long id1, Long id2, Map<Object,Object> task) {
-//
-//        Query query = sessionFactory.getCurrentSession().createQuery("update Manager set username = :username, password = :password where id = :id");
-//        query.setParameter("username", manager.getUsername());
-//        query.setParameter("password", manager.getPassword());
-//        query.setParameter("id", manager.getId());
-//        query.executeUpdate();
-//
-//
-//
-//
-////
-////        Optional<Employee> employeeOptional = employeeRepository.findById(id1);
-////
-////
-////        if(!employeeOptional.isPresent()) {
-////            throw new IllegalStateException("employee absent");
-////        }
-////
-////        Employee employeecurrent = employeeOptional.get();
-////
-////        Optional<Task> currenttask=taskRepository.findById(id2);
-////
-////        if(!currenttask.isPresent()) {
-////            throw new IllegalStateException("employee absent");
-////        }
-////else{
-////    task.forEach((key,value)->{
-////
-////        Field params= ReflectionUtils.findField(Task.class,(String) key);
-////        params.setAccessible(true);
-////        ReflectionUtils.setField(params,Task.class, value);
-////    });
-////
-////
-////        }
-////        return taskRepository.save(currenttask.get());
-////
-//////        currenttask.setCompleted(task.getCompleted());
-////
-////       // return taskRepository.save(currenttask);
-//
-//   }
+    public Task updatetaskfield(Long id1, Long id2, Task task) {
+
+        logger.info(" In getAllEmployee function ");
+        try {
+            Optional<Employee> employeeOptional = Optional.of(new Employee());
+            employeeOptional = employeeRepository.findById(id1);
+
+            if (!employeeOptional.isPresent()) {
+                throw new NullPointerException("employee absent");
+            } else {
+                Optional<Task> taskOptional = Optional.of(new Task());
+                taskOptional = getonetask(id1, id2);
+
+
+                if (!taskOptional.isPresent()) {
+                    throw new NullPointerException("employee absent");
+                } else {
+                    Task curtask = taskOptional.get();
+                    curtask.setCompleted(task.getCompleted());
+                    return taskRepository.save(curtask);
+                }
+            }
+        }catch (Exception e)
+        {
+            logger.info("Exception thrown while Updating"+e.getMessage());
+        }
+return null;
+   }
 
 }
