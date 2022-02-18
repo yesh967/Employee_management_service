@@ -28,21 +28,20 @@ public class TeamService {
     // retrieves list of all teams
     public List<Team> getteams(long id) {
         logger.info(" In getAllEmployee function ");
-            try {
-                Optional<Employee> employeeOptional = employeeRepository.findById(id);
+        try {
+            Optional<Employee> employeeOptional = employeeRepository.findById(id);
 
-                if (!employeeOptional.isPresent()) {
-                    throw new NullPointerException("employee absent");
-                }
-                else {
+            if (!employeeOptional.isPresent()) {
+                throw new NullPointerException("employee absent");
+            } else {
 
-                    return employeeOptional.get().getTeam();
-                }
+                return employeeOptional.get().getTeam();
             }
-            catch (Exception e){
-                logger.info("error while fetching Employees"+ e.getMessage());
+        } catch (Exception e) {
+            logger.info("error while fetching Employees" + e.getMessage());
+            throw new RuntimeException();
         }
-        return null;
+
     }
 
     //creating team data in database
@@ -52,9 +51,9 @@ public class TeamService {
             Optional<Employee> employeeOptional = employeeRepository.findById(id);
 
             if (!employeeOptional.isPresent()) {
-                throw new NullPointerException("employee absent");
-            }
-            else {
+                //throw new NullPointerException("employee absent");
+                return ResponseEntity.notFound().build();
+            } else {
                 Employee employeecurrent = employeeOptional.get();
 
                 teamvar.setEmployee(employeecurrent);
@@ -66,72 +65,69 @@ public class TeamService {
 
                 return ResponseEntity.created(location).build();
             }
+        } catch (Exception e) {
+            logger.info("error while fetching Employees" + e.getMessage());
+            throw new RuntimeException();
         }
-        catch (Exception e){
-            logger.info("error while fetching Employees"+ e.getMessage());
-        }
-        return null;
+
 
     }
+
     //removing team entity data from database
     public void deleteteam(Long id1, Long id2) {
         logger.info(" In deleteteam function ");
 
-            try {
-                Optional<Employee> employeeOptional = employeeRepository.findById(id1);
+        try {
+            Optional<Employee> employeeOptional = employeeRepository.findById(id1);
 
-                if (!employeeOptional.isPresent()) {
-                    throw new NullPointerException("employee absent");
-                }
-                else {
-                    teamRepository.deleteById(id2);
-                }
+            if (!employeeOptional.isPresent()) {
+                throw new NullPointerException("employee absent");
+            } else {
+                teamRepository.deleteById(id2);
             }
-            catch (Exception e){
-                logger.info("error while fetching Employees"+ e.getMessage());
-            }
+        } catch (Exception e) {
+            logger.info("error while fetching Employees" + e.getMessage());
+        }
 
     }
 
 
     //updating team data in database
-   public Team updateteam(Long id1, Long id2, Team team) {
-       logger.info(" In updateteam function ");
+    public Team updateteam(Long id1, Long id2, Team team) {
+        logger.info(" In updateteam function ");
 
-       try {
-           Optional<Employee> employeeOptional = employeeRepository.findById(id1);
+        try {
+            Optional<Employee> employeeOptional = employeeRepository.findById(id1);
 
 
-           if (!employeeOptional.isPresent()) {
-               throw new NullPointerException("employee absent");
-           }
-            else {
-               Employee currentEmployee = employeeOptional.get();
-               Optional<Team> teamOptional = teamRepository.findById(id2);
+            if (!employeeOptional.isPresent()) {
+                throw new NullPointerException("employee absent");
+            } else {
+                Employee currentEmployee = employeeOptional.get();
+                Optional<Team> teamOptional = teamRepository.findById(id2);
 
-               if(teamOptional.isPresent()) {
-                   Team currentteam=teamOptional.get();
-                   currentteam.setTeamName(team.getTeamName());
-                   currentteam.setProject(team.getProject());
-                   currentteam.setLocation(team.getLocation());
-                   currentteam.setEmployee(currentEmployee);
+                if (teamOptional.isPresent()) {
+                    Team currentteam = teamOptional.get();
+                    currentteam.setTeamName(team.getTeamName());
+                    currentteam.setProject(team.getProject());
+                    currentteam.setLocation(team.getLocation());
+                    currentteam.setEmployee(currentEmployee);
 
-                   return teamRepository.save(currentteam);
-               }
-               else {
-                   throw new NullPointerException("team absent");
-               }
-           }
-       }
-       catch (Exception e){
-           logger.info("error while fetching Employees"+ e.getMessage());
-       }
-       return null;
-   }
+                    return teamRepository.save(currentteam);
+                } else {
+                    throw new NullPointerException("team absent");
+                }
+            }
+        } catch (Exception e) {
+            //logger.info("error while fetching Employees"+ e.getMessage());
+            throw new RuntimeException("error while fetching Employees" + e.getMessage());
+        }
+
+    }
 
 
     // retrieves team if exists
-    public Optional<Team> getoneteam(Long id1, Long id2) {
+    public ResponseEntity<Team> getoneteam(Long id1, Long id2) {
         logger.info(" In getoneteam function ");
         try {
             Optional<Employee> employeeOptional = employeeRepository.findById(id1);
@@ -139,16 +135,16 @@ public class TeamService {
                 throw new IllegalStateException("employee absent");
             } else {
                 Optional<Team> teamOptional = teamRepository.findById(id2);
-                if(teamOptional.isPresent()) {
-                    return teamRepository.findById(id2);
-                }
-                else
+                if (teamOptional.isPresent()) {
+                    Team returnteam=teamOptional.get();
+                    return ResponseEntity.ok(returnteam);
+                } else
                     throw new NullPointerException("team not present");
             }
+        } catch (Exception e) {
+            logger.info("error while fetching Employees" + e.getMessage());
+            throw new RuntimeException();
         }
-        catch (Exception e){
-            logger.info("error while fetching Employees"+ e.getMessage());
-        }
-        return null;
+
     }
 }

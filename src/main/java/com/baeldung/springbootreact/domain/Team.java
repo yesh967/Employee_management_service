@@ -18,7 +18,7 @@ public class Team {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO,
-            generator ="native")
+            generator = "native")
     @GenericGenerator(name = "native",
             strategy = "native")
     private Long teamId;

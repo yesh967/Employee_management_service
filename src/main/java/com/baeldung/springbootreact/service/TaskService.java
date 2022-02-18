@@ -11,7 +11,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
 import java.net.URI;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -34,17 +33,15 @@ public class TaskService {
 
             if (!employeeOptional.isPresent()) {
                 throw new NullPointerException("employee absent");
-            }
-        else{
+            } else {
                 return employeeOptional.get().getTask();
             }
 
+        } catch (Exception e) {
+            logger.info("Exception in fetching tasks, tasks absent" + e.getMessage());
+            throw new RuntimeException();
         }
-        catch(Exception e)
-        {
-            logger.info("Exception in fetching tasks, tasks absent"+ e.getMessage());
-        }
-        return null;
+
     }
 
 
@@ -52,74 +49,63 @@ public class TaskService {
     public Task updatetask(Long id1, Long id2, Task task) {
         logger.info(" In getAllEmployee function ");
 
-        try
-        {
+        try {
             Optional<Employee> employeeOptional = employeeRepository.findById(id1);
-        if (employeeOptional.isPresent()) {
-            Employee employeecurrent = employeeOptional.get();
-            Optional<Task> currenttaskOp=taskRepository.findById(id2);
-            if (currenttaskOp.isPresent()) {
-                Task currenttask = currenttaskOp.get();
+            if (employeeOptional.isPresent()) {
+                Employee employeecurrent = employeeOptional.get();
+                Optional<Task> currenttaskOp = taskRepository.findById(id2);
+                if (currenttaskOp.isPresent()) {
+                    Task currenttask = currenttaskOp.get();
 
-                currenttask.setTaskName(task.getTaskName());
-                currenttask.setTaskPriority(task.getTaskPriority());
-                currenttask.setTaskComplexity(task.getTaskComplexity());
-                currenttask.setDeadline(task.getDeadline());
-                currenttask.setCompleted(task.getCompleted());
+                    currenttask.setTaskName(task.getTaskName());
+                    currenttask.setTaskPriority(task.getTaskPriority());
+                    currenttask.setTaskComplexity(task.getTaskComplexity());
+                    currenttask.setDeadline(task.getDeadline());
+                    currenttask.setCompleted(task.getCompleted());
 
-                currenttask.setEmployee(employeecurrent);
-                return taskRepository.save(currenttask);
+                    currenttask.setEmployee(employeecurrent);
+                    return taskRepository.save(currenttask);
+                }
+            } else {
+                throw new IOException(" cannot update Exception thrown");
             }
+        } catch (Exception e) {
+            logger.info("Exception in fetching task, task absent" + e.getMessage());
+            throw new RuntimeException();
+
         }
-        else {
-            throw new IOException(" cannot update Exception thrown");
-        }
-    }
-    catch(Exception e)
-    {
-        logger.info("Exception in fetching task, task absent"+ e.getMessage());
-    }
         return null;
     }
 
 
-
     //removing a task  from database
-    public void deletetask(Long id1, Long id2) throws NullPointerException, IOException
-    {
+    public void deletetask(Long id1, Long id2) throws NullPointerException, IOException {
         logger.info(" In getAllEmployee function ");
 
-        try{
+        try {
             Optional<Employee> employeeOptional = employeeRepository.findById(id1);
-            if(employeeOptional.isPresent())
-            {
+            if (employeeOptional.isPresent()) {
                 Optional<Task> taskOptional = taskRepository.findById(id2);
-                if(taskOptional.isPresent())
-                {
+                if (taskOptional.isPresent()) {
                     taskRepository.deleteById(id2);
-                }
-                else{
+                } else {
                     throw new NullPointerException();
                 }
-            }
-            else{
+            } else {
                 throw new NullPointerException();
             }
-        }
-        catch (Exception e)
-        {
-            logger.info("Exception in fetching task, task absent"+ e.getMessage());
+        } catch (Exception e) {
+            logger.info("Exception in fetching task, task absent" + e.getMessage());
         }
     }
 
 
     //creating tasks data in database
-    public ResponseEntity<Task> createtasks(long id, Task task)
-    {
+    public ResponseEntity<Task> createtasks(long id, Task task) {
         logger.info(" In getAllEmployee function ");
 
         try {
-            Optional<Employee> employeeOptional =employeeRepository.findById(id);
+            Optional<Employee> employeeOptional = employeeRepository.findById(id);
 
             if (!employeeOptional.isPresent()) {
                 throw new NullPointerException("employee absent");
@@ -131,12 +117,12 @@ public class TaskService {
                     .toUri();
 
             return ResponseEntity.created(location).build();
-        }catch (Exception e){
-            logger.info("Exception while creation of task"+e.getMessage());
+        } catch (Exception e) {
+            logger.info("Exception while creation of task" + e.getMessage());
+            throw new RuntimeException();
         }
-return null;
-    }
 
+    }
 
 
     //retrieving single task data from database
@@ -144,7 +130,7 @@ return null;
         logger.info(" In getAllEmployee function ");
 
         try {
-        Optional<Employee> employeeOptional= Optional.of(new Employee());
+            Optional<Employee> employeeOptional = Optional.of(new Employee());
 
             employeeOptional = employeeRepository.findById(id1);
 
@@ -160,10 +146,11 @@ return null;
                 } else
                     return taskfound;
             }
-        }catch (NullPointerException e){
-            logger.info("Task Not present"+ e.getMessage());
+        } catch (NullPointerException e) {
+            logger.info("Task Not present" + e.getMessage());
+            throw new RuntimeException();
         }
-        return null;
+
     }
 
 
@@ -189,11 +176,11 @@ return null;
                     return taskRepository.save(curtask);
                 }
             }
-        }catch (Exception e)
-        {
-            logger.info("Exception thrown while Updating"+e.getMessage());
+        } catch (Exception e) {
+            logger.info("Exception thrown while Updating" + e.getMessage());
+            throw new RuntimeException();
         }
-return null;
-   }
+
+    }
 
 }

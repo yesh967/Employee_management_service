@@ -21,7 +21,7 @@ public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO,
-            generator ="native")
+            generator = "native")
     @GenericGenerator(name = "native",
             strategy = "native")
     private Long Id;
@@ -30,7 +30,7 @@ public class Task {
     private String taskPriority;
     private String taskComplexity;
     @Future
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date Deadline;
     private boolean completed;
     @ManyToOne
@@ -38,12 +38,8 @@ public class Task {
     @ToString.Exclude
     private Employee employee;
 
-// @Bean
-//    public Task Task(){
-//     return new Task();
-// }
 
     public boolean getCompleted() {
-     return completed;
+        return completed;
     }
 }
