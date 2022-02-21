@@ -79,7 +79,7 @@ public class TaskService {
 
 
     //removing a task  from database
-    public void deletetask(Long id1, Long id2) throws NullPointerException, IOException {
+    public void deletetask(Long id1, Long id2) throws NullPointerException {
         logger.info(" In getAllEmployee function ");
 
         try {
@@ -130,17 +130,13 @@ public class TaskService {
         logger.info(" In getAllEmployee function ");
 
         try {
-            Optional<Employee> employeeOptional = Optional.of(new Employee());
-
-            employeeOptional = employeeRepository.findById(id1);
+            Optional<Employee> employeeOptional = employeeRepository.findById(id1);
 
             // System.out.println(employeeOptional);
             if (!employeeOptional.isPresent()) {
                 throw new NullPointerException("employee absent");
             } else {
-                Optional<Task> taskfound = Optional.of(new Task());
-
-                taskfound = taskRepository.findById(id2);
+                Optional<Task> taskfound =taskRepository.findById(id2);
                 if (!taskfound.isPresent()) {
                     throw new NullPointerException("employee absent");
                 } else
@@ -158,14 +154,12 @@ public class TaskService {
 
         logger.info(" In getAllEmployee function ");
         try {
-            Optional<Employee> employeeOptional = Optional.of(new Employee());
-            employeeOptional = employeeRepository.findById(id1);
+            Optional<Employee> employeeOptional =employeeRepository.findById(id1);
 
             if (!employeeOptional.isPresent()) {
                 throw new NullPointerException("employee absent");
             } else {
-                Optional<Task> taskOptional = Optional.of(new Task());
-                taskOptional = getonetask(id1, id2);
+                Optional<Task> taskOptional = getonetask(id1, id2);
 
 
                 if (!taskOptional.isPresent()) {

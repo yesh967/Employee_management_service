@@ -31,7 +31,7 @@ public class Task {
     private String taskComplexity;
     @Future
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date Deadline;
+    private Date deadline;
     private boolean completed;
     @ManyToOne
     @JsonIgnore

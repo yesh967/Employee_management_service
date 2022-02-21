@@ -23,7 +23,7 @@ public class Team {
             strategy = "native")
     private Long teamId;
     private String teamName;
-    private String Project;
+    private String project;
     private String location;
     @ManyToOne
     @JsonIgnore
