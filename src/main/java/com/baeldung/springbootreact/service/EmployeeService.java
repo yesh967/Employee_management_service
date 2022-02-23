@@ -60,7 +60,7 @@ public class EmployeeService {
     }
 
     //employee creation and saving it to database
-    public Employee createoneEmployee(Employee employee) throws Exception {
+    public Employee createoneEmployee(Employee employee) throws IOException, Exception {
         logger.info(" In createoneEmployee function ");
         Employee savedEmployee = new Employee();
         try {
@@ -72,7 +72,7 @@ public class EmployeeService {
     }
 
     //updating employee data in database
-    public Employee updatecurrentEmployee(@PathVariable Long id, @RequestBody Employee employee) {
+    public Employee updatecurrentEmployee(@PathVariable Long id, @RequestBody Employee employee) throws IOException{
         logger.info(" In UpdateCurrentEmployee function ");
         Employee currentEmployee = new Employee();
         try {

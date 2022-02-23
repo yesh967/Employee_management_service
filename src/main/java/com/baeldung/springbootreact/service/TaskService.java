@@ -46,7 +46,7 @@ public class TaskService {
 
 
     //updating task data in database
-    public Task updatetask(Long id1, Long id2, Task task) {
+    public Task updatetask(Long id1, Long id2, Task task) throws IOException{
         logger.info(" In getAllEmployee function ");
 
         try {
@@ -101,7 +101,7 @@ public class TaskService {
 
 
     //creating tasks data in database
-    public ResponseEntity<Task> createtasks(long id, Task task) {
+    public ResponseEntity<Task> createtasks(long id, Task task) throws  IOException{
         logger.info(" In getAllEmployee function ");
 
         try {
@@ -150,7 +150,7 @@ public class TaskService {
     }
 
 
-    public Task updatetaskfield(Long id1, Long id2, Task task) {
+    public Task updatetaskfield(Long id1, Long id2, Task task) throws IOException{
 
         logger.info(" In getAllEmployee function ");
         try {
